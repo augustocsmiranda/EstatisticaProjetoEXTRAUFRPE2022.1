@@ -19,7 +19,7 @@ em relação a seus preços e volume de negociação.
 
 </h4>
 <h3><p>Link do Vídeo:  
-<a href="">Clique Aqui</a></p></h3>
+<a href="https://youtu.be/_9jgDm90hKY">Clique Aqui</a></p></h3>
 <p>Link do Site onde os dados foram adquiridos:
 <a href="https://www.investing.com/">Cliqui Aqui</a></h3>
 <h3 Align="left">Material de referência sobre dashboard no ShinyR:</h3>
