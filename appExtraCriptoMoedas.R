@@ -44,49 +44,49 @@ ui <- fluidPage(
   # Título da Aplicação
   titlePanel("Projeto Extra Estatística Exploratória"),
   tags$hr(),
-
-    # Painel Principal com as TABS
-    mainPanel(
-      
-      
-      tabsetPanel(type = "tabs",
-                  #tabPanel("Aba 1 - Cripto Gráfico", plotOutput('cripto')),
-                  
-                  tabPanel("Aba 1 - Cripto Gráfico", plotlyOutput("grafico")),
-                  tabPanel("Aba 2 - Dados da Tabela", 
-                           dataTableOutput("tabela2"),
-                           tableOutput('table'),     
-                  ),
-                  tabPanel("Aba 3 - Estatística",
-                           fluidRow(
-                             column(width = 6, valueBoxOutput("media_box")),
-                             column(width = 6, valueBoxOutput("mediana_box")),
-                             column(width = 6, valueBoxOutput("desvioP_box")),
-                             column(width = 6, valueBoxOutput("dadosCriptoQuartis_box")),
-                             column(width = 6, valueBoxOutput("dadosCriptoModa_Box")),
-                             column(width = 6, valueBoxOutput("dadosCriptoAmplitude_Box")),
-                             column(width = 6, valueBoxOutput("dadosCriptoVariancia_Box")),
-                             column(width = 6, valueBoxOutput("dadosCriptoCV_Box")),
-                             column(width = 6, valueBoxOutput("dadosCriptoCoeficienteCorrelacao_Box")),
-                             column(width = 6, valueBoxOutput("dadosCriptoAssimetria_Box")),
-                             column(width = 6, valueBoxOutput("dadosCriptoCurtose_Box")),
-                             column(width = 6, valueBoxOutput("dadosCriptoConfInterval_Box")))
-                           ),
-                  tabPanel("Aba 4 - Histograma",
-                           fluidRow(
-                             plotOutput('hist')
-                  )      
-      ),
-      tabPanel("Aba 5 - Regressão",
-               fluidRow(
-                 #column(width = 12, plotOutput("reg_plot"))
-                 column(width = 12, plotlyOutput("reg_plot"))
-               )
-      )
-      
-      
+  
+  # Painel Principal com as TABS
+  mainPanel(
+    
+    
+    tabsetPanel(type = "tabs",
+                #tabPanel("Aba 1 - Cripto Gráfico", plotOutput('cripto')),
+                
+                tabPanel("Aba 1 - Cripto Gráfico", plotlyOutput("grafico")),
+                tabPanel("Aba 2 - Dados da Tabela", 
+                         dataTableOutput("tabela2"),
+                         tableOutput('table'),     
+                ),
+                tabPanel("Aba 3 - Estatística",
+                         fluidRow(
+                           column(width = 6, valueBoxOutput("media_box")),
+                           column(width = 6, valueBoxOutput("mediana_box")),
+                           column(width = 6, valueBoxOutput("desvioP_box")),
+                           column(width = 6, valueBoxOutput("dadosCriptoQuartis_box")),
+                           column(width = 6, valueBoxOutput("dadosCriptoModa_Box")),
+                           column(width = 6, valueBoxOutput("dadosCriptoAmplitude_Box")),
+                           column(width = 6, valueBoxOutput("dadosCriptoVariancia_Box")),
+                           column(width = 6, valueBoxOutput("dadosCriptoCV_Box")),
+                           column(width = 6, valueBoxOutput("dadosCriptoCoeficienteCorrelacao_Box")),
+                           column(width = 6, valueBoxOutput("dadosCriptoAssimetria_Box")),
+                           column(width = 6, valueBoxOutput("dadosCriptoCurtose_Box")),
+                           column(width = 6, valueBoxOutput("dadosCriptoConfInterval_Box")))
+                ),
+                tabPanel("Aba 4 - Histograma",
+                         fluidRow(
+                           plotOutput('hist')
+                         )      
+                ),
+                tabPanel("Aba 5 - Regressão",
+                         fluidRow(
+                           #column(width = 12, plotOutput("reg_plot"))
+                           column(width = 12, plotlyOutput("reg_plot"))
+                         )
+                )
+                
+                
     )),)
- 
+
 
 
 
@@ -130,7 +130,7 @@ server <- function(input, output) {
   
   #MEDIA 
   #dadosCriptoMedia <- dadosCripto%>% group_by(Data) %>% summarise(Media = mean(ultimo, abertura, maxima, minima))
-
+  
   #dadosCriptoMedia <- dadosCripto %>% summarise(Media = mean(ultimo))
   
   dadosCriptoMedia <- dadosCripto %>% summarise(
@@ -140,14 +140,14 @@ server <- function(input, output) {
     "Média Mínima" = mean(minima))
   
   #view(dadosCriptoMedia)
-    
+  
   media_box <- valueBox(
     "Média",
     round(dadosCriptoMedia[1, 2], 2),
     icon = icon("signal"),
     color = "purple",
     #style = "border: 2px solid red; background-color: yellow;"
-    )
+  )
   
   output$media_box <- renderValueBox({
     media_box
@@ -155,9 +155,9 @@ server <- function(input, output) {
   
   #MEDIANA
   #dadosCriptoMediana <- dadosCripto %>% group_by(Data) %>% summarise(mediana_ultimo = median(ultimo),
-   #                                                                 mediana_abertura = median(abertura),
-    #                                                                mediana_maxima = median(maxima),
-     #                                                               mediana_minima = median(minima))
+  #                                                                 mediana_abertura = median(abertura),
+  #                                                                mediana_maxima = median(maxima),
+  #                                                               mediana_minima = median(minima))
   
   dadosCriptoMediana <- dadosCripto %>% summarise(
     mediana_ultimo = median(ultimo),
@@ -204,18 +204,18 @@ server <- function(input, output) {
   #sd(Desvio_Padrão = dadosCripto$ultimo)
   
   #QUARTIL
-
   
- # dadosCriptoQuartil <- dadosCripto %>% summarise(quantile(ultimo, probs = seq(0,1, 0.25)))
+  
+  # dadosCriptoQuartil <- dadosCripto %>% summarise(quantile(ultimo, probs = seq(0,1, 0.25)))
   #view(dadosCriptoQuartil)
   
   #dadosCriptoQuartil <- valueBox(
-   # "Quartil",
-    #round(dadosCriptoQuartil[2], 2),
-    #dadosCriptoDP[1, 2],
-    #icon = icon("hourglass-3"),
-    #color = "aqua",
-    #style = "border: 2px solid red; background-color: yellow;"
+  # "Quartil",
+  #round(dadosCriptoQuartil[2], 2),
+  #dadosCriptoDP[1, 2],
+  #icon = icon("hourglass-3"),
+  #color = "aqua",
+  #style = "border: 2px solid red; background-color: yellow;"
   #)
   
   #output$dadosCriptoQuartil <- renderValueBox({
@@ -266,7 +266,7 @@ server <- function(input, output) {
   output$dadosCriptoModa_Box <- renderValueBox({
     dadosCriptoModa_Box
   })
-
+  
   #AMPLITUDE
   
   dadosCriptoAmplitude <- dadosCripto %>% 
@@ -347,6 +347,22 @@ server <- function(input, output) {
   
   #SKEWNESS
   
+  #dadosCriptoAssimetria <- dadosCripto %>% 
+  #  summarise(assimetria = skewness(as.numeric(dadosCripto$ultimo)))
+#  
+ # dadosCriptoAssimetria_Box <- valueBox(
+  #  "Assimetria",
+   # round(dadosCriptoAssimetria$assimetria, 2),
+    #icon = icon("fas fa-chart-bar"),
+    #color = "green",
+    #style = "border: 2px solid red; background-color: yellow;"
+  #)
+  #
+  #output$dadosCriptoAssimetria_Box <- renderValueBox({
+  #  dadosCriptoAssimetria_Box
+  #})
+  
+  
   dadosCriptoAssimetria <- dadosCripto %>% 
     summarise(assimetria = skewness(as.numeric(dadosCripto$ultimo)))
   
@@ -357,10 +373,12 @@ server <- function(input, output) {
     color = "green",
     #style = "border: 2px solid red; background-color: yellow;"
   )
+  #view(dadosCriptoAssimetria)
   
   output$dadosCriptoAssimetria_Box <- renderValueBox({
     dadosCriptoAssimetria_Box
   })
+  
   
   #CURTOSE
   curtose <- kurtosis(dadosCripto$ultimo, na.rm = TRUE)
@@ -521,23 +539,23 @@ server <- function(input, output) {
   
   #REGRESSÃO OK
   #output$reg_plot <- renderPlot({
-   # ggplot(dadosCripto, aes(x = abertura, y = ultimo)) +
-    #  geom_point(color = "blue") +
-     # geom_smooth(method = "lm", se = FALSE, color = "red") +
-      #labs(title = "Regressão linear entre último preço e preço de abertura",
-       #    x = "Preço de abertura (em dólares)",
-       #    y = "Último preço (em dólares)") +
-      #theme(plot.title = element_text(hjust = 0.5))
+  # ggplot(dadosCripto, aes(x = abertura, y = ultimo)) +
+  #  geom_point(color = "blue") +
+  # geom_smooth(method = "lm", se = FALSE, color = "red") +
+  #labs(title = "Regressão linear entre último preço e preço de abertura",
+  #    x = "Preço de abertura (em dólares)",
+  #    y = "Último preço (em dólares)") +
+  #theme(plot.title = element_text(hjust = 0.5))
   #})
   
   #2
   #output$reg_plot <- renderPlotly({
   #  plot_ly(dadosCripto, x = ~abertura, y = ~ultimo, type = 'scatter', mode = 'markers', marker = list(color = 'blue')) %>%
-      #add_markers() %>%
-      #add_lines(y = ~pred, line = list(color = 'red')) %>%
-     # layout(title = "Regressão linear entre último preço e preço de abertura",
-    #         xaxis = list(title = "Preço de abertura (em dólares)"),
-   #          yaxis = list(title = "Último preço (em dólares)"))
+  #add_markers() %>%
+  #add_lines(y = ~pred, line = list(color = 'red')) %>%
+  # layout(title = "Regressão linear entre último preço e preço de abertura",
+  #         xaxis = list(title = "Preço de abertura (em dólares)"),
+  #          yaxis = list(title = "Último preço (em dólares)"))
   #})
   
   output$reg_plot <- renderPlotly({
@@ -565,9 +583,9 @@ server <- function(input, output) {
   })
   
   # Gráfico da tabela com ggplot2
- # output$table <- renderTable({
- #   dadosCripto
- # })
+  # output$table <- renderTable({
+  #   dadosCripto
+  # })
   output$table <- renderTable({
     dadosCripto$Data <- format(dadosCripto$Data, "%d/%m/%Y")
     dadosCripto
@@ -576,7 +594,7 @@ server <- function(input, output) {
   
   
   ### FILTRO DA TABELA
-
+  
   
   # Filtrar tabela baseada no INPUT do usuário
   dados_filtrados <- reactive({
@@ -609,7 +627,7 @@ server <- function(input, output) {
   
   
   ########## FILTRAR DADOS 2
- 
+  
 }
 # Run the application 
 shinyApp(ui = ui, server = server)
